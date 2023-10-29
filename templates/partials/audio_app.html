@@ -1,0 +1,44 @@
+<div class="audio-container container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <form hx-post = "{% url 'upload' %}"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                          <label for="file" class="form-label">Choose Audio file</label>
+                          <input type="file" class="form-control" name="file" id="file" placeholder="upload a audio file" aria-describedby="fileHelpId">
+                          <div id="fileHelpId" class="form-text">Only Mp3 and Wav Files</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="image" class="form-label">Choose Thumbnail</label>
+                          <input type="file" class="form-control" name="image" id="image" placeholder="upload a thumbnail" aria-describedby="fileHelpId">
+                          <div id="fileHelpId" class="form-text">Only upload Image Files</div>
+                        </div>
+                        <div class="btn btn-primary">Submit</div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        All Available Audio Files
+                    </div>
+
+                    
+                    {% for item in audiolist %}
+                        <audio src="{{item}}" controls></audio>
+                        by {{item.user}}
+                    {% empty %}
+                        <div class="alert alert-danger" role = "alert">
+                            <strong>No Audio Files</strong> Upload yourself.
+                        </div>
+
+                    {% endfor %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
